@@ -81,40 +81,57 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* カスタムスクロールバー (Lightbox用) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased relative">
 
 <!-- Navigation -->
-<nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="fixed w-full z-50 transition-all duration-300 py-2" id="navbar">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex-shrink-0">
-                <a href="#" class="font-serif text-xl font-bold text-white drop-shadow-md transition-colors">HAIKARA 2026</a>
+                <a href="#" class="font-serif text-xl font-bold text-white drop-shadow-md transition-colors nav-brand">HAIKARA 2026</a>
             </div>
             <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-6 font-medium">
-                    <a href="#plan" class="text-white drop-shadow-md hover:text-primary transition-colors">PLAN</a>
-                    <a href="#schedule" class="text-white drop-shadow-md hover:text-primary transition-colors">SCHEDULE</a>
-                    <a href="#caution" class="text-white drop-shadow-md hover:text-primary transition-colors">CAUTION</a>
-                    <a href="#checklist" class="text-white drop-shadow-md hover:text-primary transition-colors">CHECK LIST</a>
+                    <a href="#plan" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">PLAN</a>
+                    <a href="#facility" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">FACILITY</a>
+                    <a href="#schedule" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">SCHEDULE</a>
+                    <a href="#caution" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">CAUTION</a>
+                    <a href="#checklist" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">CHECK LIST</a>
                 </div>
             </div>
             <!-- Mobile Menu Button -->
             <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" class="text-white hover:text-primary focus:outline-none drop-shadow-md transition-colors">
+                <button id="mobile-menu-btn" class="text-white hover:text-primary focus:outline-none drop-shadow-md transition-colors nav-btn">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
     </div>
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-16">
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-full border-t border-gray-100">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-            <a href="#plan" class="block px-3 py-2 text-textDark hover:text-primary hover:bg-gray-50 rounded-md">PLAN (旅のプラン)</a>
-            <a href="#schedule" class="block px-3 py-2 text-textDark hover:text-primary hover:bg-gray-50 rounded-md">SCHEDULE (日程)</a>
-            <a href="#caution" class="block px-3 py-2 text-textDark hover:text-primary hover:bg-gray-50 rounded-md">CAUTION (注意事項)</a>
-            <a href="#checklist" class="block px-3 py-2 text-textDark hover:text-primary hover:bg-gray-50 rounded-md">CHECK LIST (持ち物)</a>
+            <a href="#plan" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">PLAN (旅のプラン)</a>
+            <a href="#facility" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">FACILITY (施設案内)</a>
+            <a href="#schedule" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">SCHEDULE (日程)</a>
+            <a href="#caution" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">CAUTION (注意事項)</a>
+            <a href="#checklist" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">CHECK LIST (持ち物)</a>
         </div>
     </div>
 </nav>
@@ -140,29 +157,29 @@
     </div>
 </header>
 
-<!-- Main Content Container: 幅を広げてよりゆったりとしたレイアウトに -->
 <main class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-16 space-y-24">
 
     <!-- PLAN Section -->
     <section id="plan" class="pt-8 fade-in">
         <div class="text-center">
             <h2 class="text-3xl font-serif text-primary">PLAN</h2>
-            <p class="text-textLight text-sm tracking-widest mt-1 mb-10">旅のプラン</p>
+            <p class="text-textLight text-sm tracking-widest mt-1 mb-10">旅の基本情報</p>
         </div>
         
         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-            <!-- ヒーロー画像を画面幅に合わせて大きく -->
-            <div class="h-64 sm:h-80 md:h-[450px] overflow-hidden relative">
-                <img src="image.jpg" alt="サンライズガーデン外観" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
+            <div class="h-64 sm:h-80 md:h-[450px] overflow-hidden relative group">
+                <img src="image.jpg" alt="サンライズガーデン外観" class="w-full h-full object-cover lightbox-trigger cursor-zoom-in group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end pointer-events-none">
                     <h3 class="text-white text-2xl md:text-3xl font-bold p-6 w-full flex justify-between items-center">
                         宿泊先：サンライズガーデン
                         <span class="text-sm font-normal bg-primary px-4 py-1.5 rounded-full shadow-lg">2泊3日</span>
                     </h3>
                 </div>
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none flex justify-center items-center">
+                    <i class="fas fa-search-plus text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md"></i>
+                </div>
             </div>
             
-            <!-- スマホではパディングを少し抑え、中身の領域を広げる -->
             <div class="p-4 sm:p-8 md:p-10 space-y-10">
                 <!-- 基本情報 -->
                 <div class="flex flex-col md:flex-row items-start gap-6">
@@ -179,138 +196,202 @@
                             <a href="tel:0557-37-5155" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
                                 <i class="fas fa-phone-alt mr-2"></i> 0557-37-5155
                             </a>
-                            <a href="https://sunrise-ne-jp.jimdofree.com/" target="_blank" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
+                            <!-- リンク先を修正 -->
+                            <a href="https://www.stagevilla.co.jp/villa/10614" target="_blank" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
                                 <i class="fas fa-external-link-alt mr-2"></i> 公式サイトを見る
                             </a>
                         </div>
                     </div>
 
-                    <!-- Google Map 埋め込み: 広く、引いた状態(z=13)に設定 -->
-                    <div class="w-full md:w-2/3 rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-                        <iframe src="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-72 md:h-96" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <!-- Google Map -->
+                    <div class="w-full md:w-2/3 rounded-2xl overflow-hidden shadow-sm border border-gray-200 relative group">
+                        <iframe src="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-72 md:h-80" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
-                <div class="bg-indigo-50/40 rounded-3xl p-4 sm:p-8 md:p-10 border border-indigo-100">
-                    <div class="text-center mb-10">
-                        <h4 class="inline-block font-bold text-gray-800 text-2xl md:text-3xl pb-2 border-b-2 border-primary">
-                            <i class="fas fa-star text-yellow-400 mr-2"></i>宿泊先の紹介
-                        </h4>
-                        <p class="text-base text-textLight mt-3">合宿を最高に盛り上げる、充実の設備をご紹介します！</p>
-                    </div>
-                    
-                    <div class="space-y-12">
-                        <!-- 間取り図 -->
-                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-map mr-2 text-3xl w-10"></i>広々とした館内マップ</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                                <div class="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 p-4 flex justify-center">
-                                    <img src="277516_0.jpg" alt="サンライズガーデン間取り図" class="w-full h-auto object-contain max-h-[400px]">
-                                </div>
-                                <div class="space-y-5">
-                                    <p class="text-base text-gray-700 leading-relaxed">サンライズガーデンは1Fから3Fまである大型リゾートコテージです。大人数での合宿でもゆったりと過ごせる設計になっています。</p>
-                                    <ul class="text-base text-gray-700 space-y-4">
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3 text-xl"></i> <div><b>【1F】みんなが集まるパブリックスペース</b><br>大食堂（ダイニング）やフロント、そして屋外には全天候型の屋根付きBBQ場を完備。美味しい食事や宴会の中心地です。</div></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3 text-xl"></i> <div><b>【2F・3F】くつろぎのプライベートエリア</b><br>多数の客室が並ぶエリア。2階には大広間やプレイルームなどの共有スペースも充実しており、自由時間も仲間と楽しく過ごせます。</div></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 温泉・お風呂 -->
-                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-hot-tub text-3xl w-10"></i>絶景＆癒しのお風呂</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
-                                        <img src="277514_0.jpg" alt="絶景オーシャンビュー露天風呂" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <p class="font-bold text-gray-800 text-lg mb-2">絶景オーシャンビュー露天風呂</p>
-                                    <p class="text-base text-gray-600 leading-relaxed">目の前に広がる青い海！波の音と潮風を感じながら、極上のリラックスタイムを過ごせます。</p>
-                                </div>
-                                <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
-                                        <img src="277511_0.jpg" alt="広々とした大浴場" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <p class="font-bold text-gray-800 text-lg mb-2">広々とした大浴場</p>
-                                    <p class="text-base text-gray-600 leading-relaxed">大人数でも安心の洗い場を完備。みんなでワイワイお風呂に入れば、一日の疲れも吹き飛び仲も深まります。</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- アミューズメント＆共有スペース -->
-                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-gamepad text-3xl w-10"></i>遊び尽くせる充実設備</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
-                                        <img src="277494_0.jpg" alt="プレイルーム" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <p class="font-bold text-gray-800 text-lg mb-2">白熱必至！プレイルーム</p>
-                                    <p class="text-base text-gray-600 leading-relaxed">本格的なビリヤード台に卓球台！自由時間はここで決まり。時間を忘れて仲間と本気バトルが楽しめます。</p>
-                                </div>
-                                <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
-                                        <img src="277517_0.jpg" alt="ゴージャスなラウンジ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <p class="font-bold text-gray-800 text-lg mb-2">カラオケ完備の特別ラウンジ</p>
-                                    <p class="text-base text-gray-600 leading-relaxed">ふかふかの赤いソファが並ぶゴージャスな空間。カラオケで歌ったり、夜はゆったり語り合ったりできます。</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 食事・宴会スペース -->
-                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-utensils text-3xl w-10"></i>みんなで囲む美味しい時間</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
-                                        <img src="277518_0.jpg" alt="全天候型BBQスペース" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <p class="font-bold text-gray-800 text-lg mb-2">全天候型BBQスペース</p>
-                                    <p class="text-base text-gray-600 leading-relaxed">しっかりとした屋根付きだから雨でも安心！合宿のメインイベント、BBQで最高に盛り上がろう！</p>
-                                </div>
-                                <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
-                                        <img src="277498_0.jpg" alt="明るい大食堂" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <p class="font-bold text-gray-800 text-lg mb-2">光が差し込む大食堂</p>
-                                    <p class="text-base text-gray-600 leading-relaxed">大きな窓から自然光がたっぷり入る明るいダイニング。全員の顔を見ながら、楽しく食事ができます。</p>
-                                </div>
-                                
-                                <!-- 大広間：PCでは左右2カラム、スマホでは上下 -->
-                                <div class="rounded-xl overflow-hidden group md:col-span-2 bg-gray-50 flex flex-col md:flex-row border border-gray-100 mt-4 shadow-sm">
-                                    <div class="relative w-full md:w-1/2 aspect-video md:aspect-auto overflow-hidden">
-                                        <img src="277512_0.jpg" alt="大広間" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    </div>
-                                    <div class="p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
-                                        <span class="bg-primary/10 text-primary text-sm font-bold px-3 py-1 rounded-full inline-block w-fit mb-3">宴会・レクに最適</span>
-                                        <p class="font-bold text-gray-800 text-xl md:text-2xl mb-3">夜の大宴会はここで！広々和室</p>
-                                        <p class="text-base text-gray-600 leading-relaxed">大人数が集まっても余裕の広さを持つ大広間。夜のレクやゲーム大会、宴会はここでゴロゴロしながら楽しもう！最高の思い出になること間違いなし。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="border-gray-100 my-10">
+                <hr class="border-gray-100 my-8">
 
                 <!-- 集合情報 -->
                 <div class="flex items-start bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
-                    <div class="bg-orange-100 w-14 h-14 rounded-full flex items-center justify-center text-secondary flex-shrink-0 mr-5">
+                    <div class="bg-orange-100 w-14 h-14 rounded-full flex items-center justify-center text-secondary flex-shrink-0 mr-4 sm:mr-5">
                         <i class="fas fa-flag text-2xl"></i>
                     </div>
-                    <div>
+                    <div class="w-full">
                         <h4 class="text-xl font-bold mb-2">最初の集合場所</h4>
-                        <p class="text-textDark text-lg">
-                            <span class="font-bold text-primary text-xl">9月6日(日) 9:30</span><br>
-                            東京駅 丸の内南口改札 <span class="text-sm text-red-500 border border-red-500 rounded px-2 py-0.5 ml-2 bg-red-50 font-bold">改札外集合</span>
-                        </p>
-                        <p class="text-textLight text-base mt-3 bg-white px-3 py-2 rounded-lg inline-block shadow-sm"><i class="fas fa-train mr-2 text-primary"></i> 10:00 特急踊り子5号 出発予定</p>
+                        <!-- スマホでの改行を修正 -->
+                        <div class="text-textDark text-lg mt-1 flex flex-wrap items-center gap-y-2 gap-x-1 sm:gap-x-2">
+                            <span class="font-bold text-primary text-xl w-full block mb-1">9月6日(日) 9:30</span>
+                            <span class="inline-block">東京駅 丸の内南口改札</span>
+                            <span class="inline-block text-sm text-red-500 border border-red-500 rounded px-2 py-0.5 bg-red-50 font-bold whitespace-nowrap">改札外集合</span>
+                        </div>
+                        <p class="text-textLight text-base mt-4 bg-white px-3 py-2 rounded-lg inline-block shadow-sm border border-gray-100"><i class="fas fa-train mr-2 text-primary"></i> 10:00 特急踊り子5号 出発予定</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- FACILITY Section (新規追加) -->
+    <section id="facility" class="pt-8 fade-in">
+        <div class="text-center">
+            <h2 class="text-3xl font-serif text-primary">FACILITY</h2>
+            <p class="text-textLight text-sm tracking-widest mt-1 mb-10">施設・アメニティ案内</p>
+        </div>
+
+        <div class="bg-indigo-50/30 rounded-3xl p-4 sm:p-8 md:p-10 border border-indigo-100 shadow-sm space-y-12">
+            
+            <div class="text-center mb-6">
+                <p class="text-base text-textLight">合宿を最高に盛り上げる、充実の設備をご紹介します。画像はタップで拡大できます。</p>
+            </div>
+
+            <!-- 間取り・客室 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
+                <!-- 間取り図 -->
+                <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
+                    <h5 class="font-bold text-xl text-primary mb-4 flex items-center"><i class="fas fa-map mr-2 text-2xl w-8"></i>館内マップ・間取り</h5>
+                    <div class="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 p-2 flex justify-center flex-grow group relative cursor-zoom-in mb-4">
+                        <img src="277516_0.jpg" alt="サンライズガーデン間取り図" class="lightbox-trigger w-full h-full object-contain max-h-[300px]">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none flex justify-center items-center">
+                            <i class="fas fa-search-plus text-gray-600 text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">1Fは食堂やBBQなどの共有スペース、2F・3Fは客室と大広間などのくつろぎエリアになっています。</p>
+                </div>
+
+                <!-- 客室 (ユーザー提供画像を使用) -->
+                <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
+                    <h5 class="font-bold text-xl text-primary mb-4 flex items-center"><i class="fas fa-bed mr-2 text-2xl w-8"></i>ゆったりくつろげる客室</h5>
+                    <div class="rounded-xl overflow-hidden group relative cursor-zoom-in flex-grow aspect-[4/3] mb-4">
+                        <img src="image_8f0242.jpg" alt="木の温もりを感じる広々とした客室" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none flex justify-center items-center">
+                            <i class="fas fa-search-plus text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">木の温もりを感じる開放的な客室。大きな窓からは自然光が差し込み、ゆったりと体を休めることができます。</p>
+                </div>
+            </div>
+
+            <!-- 共有設備 -->
+            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-star text-yellow-400 mr-2 text-2xl w-8"></i>充実の共有設備</h5>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+                    <!-- お風呂 -->
+                    <div class="rounded-xl overflow-hidden group cursor-zoom-in">
+                        <div class="relative aspect-video overflow-hidden rounded-xl mb-3 shadow-sm">
+                            <img src="277514_0.jpg" alt="絶景オーシャンビュー露天風呂" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex justify-center items-center transition-colors pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </div>
+                        </div>
+                        <p class="font-bold text-gray-800 text-sm md:text-base mb-1">オーシャンビュー露天風呂</p>
+                        <p class="text-xs md:text-sm text-gray-500">潮風を感じながらリラックス。</p>
+                    </div>
+
+                    <div class="rounded-xl overflow-hidden group cursor-zoom-in">
+                        <div class="relative aspect-video overflow-hidden rounded-xl mb-3 shadow-sm">
+                            <img src="277511_0.jpg" alt="広々とした大浴場" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex justify-center items-center transition-colors pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </div>
+                        </div>
+                        <p class="font-bold text-gray-800 text-sm md:text-base mb-1">広々とした大浴場</p>
+                        <p class="text-xs md:text-sm text-gray-500">大人数でも安心の洗い場完備。</p>
+                    </div>
+
+                    <!-- 遊び・宴会 -->
+                    <div class="rounded-xl overflow-hidden group cursor-zoom-in">
+                        <div class="relative aspect-video overflow-hidden rounded-xl mb-3 shadow-sm">
+                            <img src="277494_0.jpg" alt="プレイルーム（卓球・ビリヤード）" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex justify-center items-center transition-colors pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </div>
+                        </div>
+                        <p class="font-bold text-gray-800 text-sm md:text-base mb-1">プレイルーム</p>
+                        <p class="text-xs md:text-sm text-gray-500">卓球やビリヤードで白熱バトル！</p>
+                    </div>
+
+                    <div class="rounded-xl overflow-hidden group cursor-zoom-in">
+                        <div class="relative aspect-video overflow-hidden rounded-xl mb-3 shadow-sm">
+                            <img src="277518_0.jpg" alt="全天候型BBQスペース" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex justify-center items-center transition-colors pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </div>
+                        </div>
+                        <p class="font-bold text-gray-800 text-sm md:text-base mb-1">全天候型BBQスペース</p>
+                        <p class="text-xs md:text-sm text-gray-500">屋根付きで雨の日でも安心。</p>
+                    </div>
+
+                    <div class="rounded-xl overflow-hidden group cursor-zoom-in">
+                        <div class="relative aspect-video overflow-hidden rounded-xl mb-3 shadow-sm">
+                            <img src="277498_0.jpg" alt="明るい大食堂" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex justify-center items-center transition-colors pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </div>
+                        </div>
+                        <p class="font-bold text-gray-800 text-sm md:text-base mb-1">光が差し込む大食堂</p>
+                        <p class="text-xs md:text-sm text-gray-500">全員で楽しく食事ができます。</p>
+                    </div>
+
+                    <div class="rounded-xl overflow-hidden group cursor-zoom-in">
+                        <div class="relative aspect-video overflow-hidden rounded-xl mb-3 shadow-sm">
+                            <img src="277512_0.jpg" alt="宴会に最適な大広間" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex justify-center items-center transition-colors pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </div>
+                        </div>
+                        <p class="font-bold text-gray-800 text-sm md:text-base mb-1">ゆったり大広間</p>
+                        <p class="text-xs md:text-sm text-gray-500">夜のレクや宴会はここで！</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アメニティ・設備リスト -->
+            <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-concierge-bell mr-2 text-2xl w-8"></i>設備・アメニティ詳細</h5>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- バス・洗面 -->
+                    <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                        <h6 class="font-bold text-blue-800 mb-3 border-b border-blue-200 pb-2"><i class="fas fa-bath mr-2"></i>バス・洗面</h6>
+                        <ul class="grid grid-cols-2 gap-y-2 gap-x-4 text-sm text-gray-700">
+                            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2"></i> シャンプー</li>
+                            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2"></i> リンス</li>
+                            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2"></i> ボディソープ</li>
+                            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2"></i> ドライヤー ※1</li>
+                        </ul>
+                    </div>
+
+                    <!-- キッチン -->
+                    <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100">
+                        <h6 class="font-bold text-orange-800 mb-3 border-b border-orange-200 pb-2"><i class="fas fa-utensils mr-2"></i>キッチン周り</h6>
+                        <ul class="grid grid-cols-2 gap-y-2 gap-x-4 text-sm text-gray-700">
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 冷蔵庫</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 電子レンジ</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 炊飯器</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 調理器具一式</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 食器類</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> BBQ設備</li>
+                        </ul>
+                    </div>
+
+                    <!-- その他 -->
+                    <div class="bg-green-50/50 p-4 rounded-xl border border-green-100 md:col-span-2">
+                        <h6 class="font-bold text-green-800 mb-3 border-b border-green-200 pb-2"><i class="fas fa-tv mr-2"></i>その他設備</h6>
+                        <ul class="grid grid-cols-2 sm:grid-cols-4 gap-y-2 gap-x-4 text-sm text-gray-700">
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> エアコン</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> テレビ</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 洗濯機</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 駐車場</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Wi-Fi (要確認)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p class="text-xs md:text-sm text-red-500 mt-4"><i class="fas fa-exclamation-triangle mr-1"></i>※1 ドライヤーは備え付けがありますが、数が少ない可能性があるため、必要な方はご自身での持参をおすすめします。</p>
+                <p class="text-xs md:text-sm text-red-500 mt-1"><i class="fas fa-exclamation-triangle mr-1"></i>パジャマやタオル類、歯ブラシなどの個人用アメニティは用意がありません。必ずご持参ください。</p>
+            </div>
+
         </div>
     </section>
 
@@ -428,7 +509,7 @@
                         <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">21:00</div>
                         <div class="mt-2 md:mt-0 flex-grow">
                             <h4 class="text-xl font-bold text-textDark"><i class="fas fa-glass-cheers mr-2 text-yellow-500"></i>大宴会開始</h4>
-                            <p class="text-base text-textLight mt-2">大広間に集まってレクやゲーム、宴会で夜遅くまで盛り上がりましょう！</p>
+                            <p class="text-base text-textLight mt-2">大広間に集まってレクやゲーム、宴会で盛り上がりましょう！</p>
                         </div>
                     </div>
                 </div>
@@ -508,16 +589,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-5 gap-x-6" id="checklist-container">
                 <!-- Javascript will populate this list -->
             </div>
-
-            <div class="mt-12 bg-indigo-50/50 rounded-2xl p-6 md:p-8 border border-indigo-100">
-                <h4 class="font-bold text-xl mb-4 border-b-2 border-primary/20 pb-2 inline-block"><i class="fas fa-bath text-primary mr-2"></i>施設のアメニティ情報</h4>
-                <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 text-base text-textDark mt-4">
-                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> シャンプー</li>
-                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> リンス</li>
-                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> ボディソープ</li>
-                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> ドライヤー</li>
-                </ul>
-                <p class="text-sm md:text-base text-red-500 mt-5 bg-red-50 p-3 rounded-lg border border-red-100"><i class="fas fa-exclamation-triangle mr-2"></i>※ドライヤーは数が少ない可能性があるため、必要な方はご自身での持参をおすすめします。</p>
+            
+            <div class="mt-8 text-center">
+                <a href="#facility" class="inline-block text-primary hover:text-white border border-primary hover:bg-primary px-6 py-2 rounded-full transition-colors text-sm font-medium">
+                    アメニティ・設備情報を確認する <i class="fas fa-arrow-up ml-1"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -535,40 +611,45 @@
     </div>
 </footer>
 
+<!-- Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 hidden flex-col justify-center items-center p-4 transition-opacity duration-300 opacity-0 cursor-zoom-out backdrop-blur-sm">
+    <div class="relative w-full max-w-5xl max-h-[90vh] flex flex-col justify-center items-center pointer-events-none">
+        <img id="lightbox-img" src="" alt="拡大画像" class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl pointer-events-auto cursor-default border-4 border-white/10">
+        <button id="lightbox-close" class="absolute top-[-50px] right-0 text-white/70 hover:text-white transition-colors text-4xl focus:outline-none pointer-events-auto cursor-pointer p-2">
+            <i class="fas fa-times"></i>
+        </button>
+        <p id="lightbox-caption" class="text-white mt-6 text-lg md:text-xl font-medium tracking-wide bg-black/50 px-6 py-2 rounded-full pointer-events-auto"></p>
+    </div>
+</div>
+
 <script>
     // Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navBrand = document.querySelector('.nav-brand');
+    const navBtn = document.querySelector('.nav-btn');
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('bg-white', 'shadow-md', 'py-1');
             navbar.classList.remove('py-2');
-            const links = navbar.querySelectorAll('a');
-            links.forEach(link => {
-                if(link.classList.contains('text-white')){
-                    link.classList.remove('text-white', 'drop-shadow-md');
-                    link.classList.add('text-textDark');
+            
+            [navBrand, ...navLinks, navBtn].forEach(el => {
+                if(el && el.classList.contains('text-white')){
+                    el.classList.remove('text-white', 'drop-shadow-md');
+                    el.classList.add('text-textDark');
                 }
             });
-            const btn = document.getElementById('mobile-menu-btn');
-            if(btn.classList.contains('text-white')){
-                btn.classList.remove('text-white', 'drop-shadow-md');
-                btn.classList.add('text-textDark');
-            }
         } else {
             navbar.classList.remove('bg-white', 'shadow-md', 'py-1');
             navbar.classList.add('py-2');
-            const links = navbar.querySelectorAll('a');
-            links.forEach(link => {
-                if(link.classList.contains('text-textDark') && !link.closest('#mobile-menu')){
-                    link.classList.remove('text-textDark');
-                    link.classList.add('text-white', 'drop-shadow-md');
+            
+            [navBrand, ...navLinks, navBtn].forEach(el => {
+                if(el && el.classList.contains('text-textDark')){
+                    el.classList.remove('text-textDark');
+                    el.classList.add('text-white', 'drop-shadow-md');
                 }
             });
-            const btn = document.getElementById('mobile-menu-btn');
-            if(btn.classList.contains('text-textDark')){
-                btn.classList.remove('text-textDark');
-                btn.classList.add('text-white', 'drop-shadow-md');
-            }
         }
     });
 
@@ -603,12 +684,66 @@
         observer.observe(element);
     });
 
+    // Lightbox Functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+
+    const openLightbox = (src, alt) => {
+        lightboxImg.src = src;
+        lightboxCaption.textContent = alt;
+        lightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // 背景のスクロール防止
+        
+        // 少し遅延させてopacityを変更（フェードインアニメーション用）
+        setTimeout(() => {
+            lightbox.classList.remove('opacity-0');
+            lightbox.classList.add('opacity-100');
+        }, 10);
+    };
+
+    const closeLightboxFn = () => {
+        lightbox.classList.remove('opacity-100');
+        lightbox.classList.add('opacity-0');
+        document.body.style.overflow = ''; // スクロール復元
+        
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            lightboxImg.src = '';
+        }, 300); // transitionのdurationと合わせる
+    };
+
+    // トリガー画像クリックで開く
+    lightboxTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            openLightbox(trigger.src, trigger.alt);
+        });
+    });
+
+    // 閉じるボタンまたは背景クリックで閉じる
+    lightboxClose.addEventListener('click', closeLightboxFn);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            closeLightboxFn();
+        }
+    });
+
+    // ESCキーで閉じる
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+            closeLightboxFn();
+        }
+    });
+
     // Checklist Data and Rendering
     const items = [
         "財布", "携帯電話", "充電器", "現金", "交通ICカード", 
         "学生証", "身分証明書", "散策用バッグ", "折り畳み傘", "防寒具", 
-        "タオル", "履き馴れた靴", "予備の靴下", "パジャマ", "ハンカチ", 
-        "ティッシュ", "バスタオル", "歯磨きセット", "免許証", 
+        "バスタオル・タオル", "履き馴れた靴", "予備の靴下", "パジャマ", "ハンカチ", 
+        "ティッシュ", "歯磨きセット", "免許証", 
         "みんなで遊べるもの", "ドライヤー (推奨)"
     ];
 
