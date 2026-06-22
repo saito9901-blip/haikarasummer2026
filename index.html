@@ -45,8 +45,7 @@
         }
         
         .hero-bg {
-            /* サンライズガーデンの雰囲気に合わせた、海辺の大型リゾートコテージのイメージ */
-            background-color: #64748b; /* 画像が読み込めないプレビュー時の背景色 */
+            background-color: #64748b;
             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('image.jpg');
             background-size: cover;
             background-position: center;
@@ -88,7 +87,7 @@
 
 <!-- Navigation -->
 <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex-shrink-0">
                 <a href="#" class="font-serif text-xl font-bold text-white drop-shadow-md transition-colors">HAIKARA 2026</a>
@@ -128,7 +127,6 @@
         <p class="text-white text-2xl md:text-3xl font-medium tracking-wider mb-8 drop-shadow-md">HAIKARA 2026</p>
         
         <div class="bg-white/20 backdrop-blur-md rounded-2xl p-6 inline-block border border-white/30 text-white shadow-xl">
-            <!-- 日程を修正: 9月6日〜9月8日 -->
             <p class="text-lg md:text-xl mb-1"><i class="far fa-calendar-alt mr-2"></i> 2026.09.06 - 09.08</p>
             <p class="text-lg md:text-xl font-bold"><i class="fas fa-map-marker-alt mr-2 text-red-400"></i> 伊豆・下田方面</p>
         </div>
@@ -142,8 +140,8 @@
     </div>
 </header>
 
-<!-- Main Content Container -->
-<main class="max-w-3xl mx-auto px-4 py-16 space-y-24">
+<!-- Main Content Container: 幅を広げてよりゆったりとしたレイアウトに -->
+<main class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-16 space-y-24">
 
     <!-- PLAN Section -->
     <section id="plan" class="pt-8 fade-in">
@@ -153,137 +151,142 @@
         </div>
         
         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="h-56 overflow-hidden relative">
-                <!-- 海が見える広々としたリビングのイメージ画像 -->
+            <!-- ヒーロー画像を画面幅に合わせて大きく -->
+            <div class="h-64 sm:h-80 md:h-[450px] overflow-hidden relative">
                 <img src="image.jpg" alt="サンライズガーデン外観" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                    <h3 class="text-white text-2xl font-bold p-6 w-full flex justify-between items-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end">
+                    <h3 class="text-white text-2xl md:text-3xl font-bold p-6 w-full flex justify-between items-center">
                         宿泊先：サンライズガーデン
-                        <span class="text-sm font-normal bg-primary px-3 py-1 rounded-full">2泊3日</span>
+                        <span class="text-sm font-normal bg-primary px-4 py-1.5 rounded-full shadow-lg">2泊3日</span>
                     </h3>
                 </div>
             </div>
             
-            <div class="p-6 md:p-8 space-y-8">
+            <!-- スマホではパディングを少し抑え、中身の領域を広げる -->
+            <div class="p-4 sm:p-8 md:p-10 space-y-10">
                 <!-- 基本情報 -->
-                <div class="flex items-start">
-                    <div class="bg-indigo-50 w-12 h-12 rounded-full flex items-center justify-center text-primary flex-shrink-0 mr-4 mt-1">
-                        <i class="fas fa-map-marked-alt text-xl"></i>
-                    </div>
-                    <div class="w-full">
+                <div class="flex flex-col md:flex-row items-start gap-6">
+                    <div class="flex flex-col w-full md:w-1/3">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-indigo-50 w-12 h-12 rounded-full flex items-center justify-center text-primary flex-shrink-0 mr-4">
+                                <i class="fas fa-map-marked-alt text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold">アクセス情報</h4>
+                        </div>
                         <p class="text-textLight text-sm mb-1">〒413-0503 静岡県賀茂郡河津町見高109-6</p>
-                        <p class="text-textDark font-medium mb-2">今井浜海岸駅から徒歩7分 / 今井浜海水浴場まで徒歩7分</p>
-                        <div class="flex flex-wrap gap-3 mb-4">
-                            <a href="tel:0557-37-5155" class="inline-flex items-center text-primary hover:underline font-medium text-sm bg-primary/10 px-3 py-1.5 rounded-full transition">
+                        <p class="text-textDark font-medium text-base mb-4">今井浜海岸駅から徒歩7分<br>今井浜海水浴場まで徒歩7分</p>
+                        <div class="flex flex-col gap-3 mb-4">
+                            <a href="tel:0557-37-5155" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
                                 <i class="fas fa-phone-alt mr-2"></i> 0557-37-5155
                             </a>
-                            <a href="https://sunrise-ne-jp.jimdofree.com/" target="_blank" class="inline-flex items-center text-primary hover:underline font-medium text-sm bg-primary/10 px-3 py-1.5 rounded-full transition">
+                            <a href="https://sunrise-ne-jp.jimdofree.com/" target="_blank" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
                                 <i class="fas fa-external-link-alt mr-2"></i> 公式サイトを見る
                             </a>
                         </div>
-                        <!-- Google Map 埋め込み -->
-                        <div class="w-full rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                            <iframe src="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
+                    </div>
+
+                    <!-- Google Map 埋め込み: 広く、引いた状態(z=13)に設定 -->
+                    <div class="w-full md:w-2/3 rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+                        <iframe src="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-72 md:h-96" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
-                <!-- 施設・設備情報（大幅アップデート） -->
-                <div class="bg-indigo-50/50 rounded-3xl p-5 md:p-8 border border-indigo-100">
-                    <div class="text-center mb-8">
-                        <h4 class="inline-block font-bold text-gray-800 text-xl md:text-2xl pb-2 border-b-2 border-primary">
+                <div class="bg-indigo-50/40 rounded-3xl p-4 sm:p-8 md:p-10 border border-indigo-100">
+                    <div class="text-center mb-10">
+                        <h4 class="inline-block font-bold text-gray-800 text-2xl md:text-3xl pb-2 border-b-2 border-primary">
                             <i class="fas fa-star text-yellow-400 mr-2"></i>宿泊先の紹介
                         </h4>
-                        <p class="text-sm text-textLight mt-3">合宿を最高に盛り上げる、充実の設備をご紹介します！</p>
+                        <p class="text-base text-textLight mt-3">合宿を最高に盛り上げる、充実の設備をご紹介します！</p>
                     </div>
                     
-                    <div class="space-y-10">
+                    <div class="space-y-12">
                         <!-- 間取り図 -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-lg text-primary mb-4 flex items-center"><i class="fas fa-map mr-2 text-2xl w-8"></i>広々とした館内マップ</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
-                                <div class="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 p-2 flex justify-center">
-                                    <img src="277516_0.jpg" alt="サンライズガーデン間取り図" class="w-full h-auto object-contain max-h-96">
+                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
+                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-map mr-2 text-3xl w-10"></i>広々とした館内マップ</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                                <div class="rounded-xl overflow-hidden bg-gray-50 border border-gray-100 p-4 flex justify-center">
+                                    <img src="277516_0.jpg" alt="サンライズガーデン間取り図" class="w-full h-auto object-contain max-h-[400px]">
                                 </div>
-                                <div class="space-y-4">
-                                    <p class="text-sm text-gray-600 leading-relaxed">サンライズガーデンは1Fから3Fまである大型リゾートコテージです。大人数での合宿でもゆったりと過ごせる設計になっています。</p>
-                                    <ul class="text-sm text-gray-600 space-y-3">
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-2 text-lg"></i> <div><b>【1F】みんなが集まるパブリックスペース</b><br>大食堂（ダイニング）やフロント、そして屋外には全天候型の屋根付きBBQ場を完備。美味しい食事や宴会の中心地です。</div></li>
-                                        <li class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-2 text-lg"></i> <div><b>【2F・3F】くつろぎのプライベートエリア</b><br>多数の客室が並ぶエリア。2階には大広間やプレイルームなどの共有スペースも充実しており、自由時間も仲間と楽しく過ごせます。</div></li>
+                                <div class="space-y-5">
+                                    <p class="text-base text-gray-700 leading-relaxed">サンライズガーデンは1Fから3Fまである大型リゾートコテージです。大人数での合宿でもゆったりと過ごせる設計になっています。</p>
+                                    <ul class="text-base text-gray-700 space-y-4">
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3 text-xl"></i> <div><b>【1F】みんなが集まるパブリックスペース</b><br>大食堂（ダイニング）やフロント、そして屋外には全天候型の屋根付きBBQ場を完備。美味しい食事や宴会の中心地です。</div></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3 text-xl"></i> <div><b>【2F・3F】くつろぎのプライベートエリア</b><br>多数の客室が並ぶエリア。2階には大広間やプレイルームなどの共有スペースも充実しており、自由時間も仲間と楽しく過ごせます。</div></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 温泉・お風呂 -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-lg text-primary mb-4 flex items-center"><i class="fas fa-hot-tub text-2xl w-8"></i>絶景＆癒しのお風呂</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
+                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-hot-tub text-3xl w-10"></i>絶景＆癒しのお風呂</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                                 <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative h-48 overflow-hidden rounded-lg mb-3">
+                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
                                         <img src="277514_0.jpg" alt="絶景オーシャンビュー露天風呂" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <p class="font-bold text-gray-800 text-base mb-1">絶景オーシャンビュー露天風呂</p>
-                                    <p class="text-sm text-gray-600 leading-relaxed">目の前に広がる青い海！波の音と潮風を感じながら、極上のリラックスタイムを過ごせます。写真映えもバッチリ！</p>
+                                    <p class="font-bold text-gray-800 text-lg mb-2">絶景オーシャンビュー露天風呂</p>
+                                    <p class="text-base text-gray-600 leading-relaxed">目の前に広がる青い海！波の音と潮風を感じながら、極上のリラックスタイムを過ごせます。</p>
                                 </div>
                                 <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative h-48 overflow-hidden rounded-lg mb-3">
+                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
                                         <img src="277511_0.jpg" alt="広々とした大浴場" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <p class="font-bold text-gray-800 text-base mb-1">広々とした大浴場</p>
-                                    <p class="text-sm text-gray-600 leading-relaxed">大人数でも安心の洗い場を完備。みんなでワイワイお風呂に入れば、一日の疲れも吹き飛び仲も深まります。</p>
+                                    <p class="font-bold text-gray-800 text-lg mb-2">広々とした大浴場</p>
+                                    <p class="text-base text-gray-600 leading-relaxed">大人数でも安心の洗い場を完備。みんなでワイワイお風呂に入れば、一日の疲れも吹き飛び仲も深まります。</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- アミューズメント＆共有スペース -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-lg text-primary mb-4 flex items-center"><i class="fas fa-gamepad text-2xl w-8"></i>遊び尽くせる充実設備</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
+                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-gamepad text-3xl w-10"></i>遊び尽くせる充実設備</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                                 <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative h-48 overflow-hidden rounded-lg mb-3">
+                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
                                         <img src="277494_0.jpg" alt="プレイルーム" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <p class="font-bold text-gray-800 text-base mb-1">白熱必至！プレイルーム</p>
-                                    <p class="text-sm text-gray-600 leading-relaxed">本格的なビリヤード台に卓球台！自由時間はここで決まり。時間を忘れて仲間と本気バトルが楽しめます。</p>
+                                    <p class="font-bold text-gray-800 text-lg mb-2">白熱必至！プレイルーム</p>
+                                    <p class="text-base text-gray-600 leading-relaxed">本格的なビリヤード台に卓球台！自由時間はここで決まり。時間を忘れて仲間と本気バトルが楽しめます。</p>
                                 </div>
                                 <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative h-48 overflow-hidden rounded-lg mb-3">
+                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
                                         <img src="277517_0.jpg" alt="ゴージャスなラウンジ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <p class="font-bold text-gray-800 text-base mb-1">カラオケ完備の特別ラウンジ</p>
-                                    <p class="text-sm text-gray-600 leading-relaxed">ふかふかの赤いソファが並ぶゴージャスな空間。カラオケで歌ったり、夜はゆったり語り合ったりできます。</p>
+                                    <p class="font-bold text-gray-800 text-lg mb-2">カラオケ完備の特別ラウンジ</p>
+                                    <p class="text-base text-gray-600 leading-relaxed">ふかふかの赤いソファが並ぶゴージャスな空間。カラオケで歌ったり、夜はゆったり語り合ったりできます。</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 食事・宴会スペース -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm">
-                            <h5 class="font-bold text-lg text-primary mb-4 flex items-center"><i class="fas fa-utensils text-2xl w-8"></i>みんなで囲む美味しい時間</h5>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm">
+                            <h5 class="font-bold text-xl text-primary mb-6 flex items-center"><i class="fas fa-utensils text-3xl w-10"></i>みんなで囲む美味しい時間</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                                 <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative h-48 overflow-hidden rounded-lg mb-3">
+                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
                                         <img src="277518_0.jpg" alt="全天候型BBQスペース" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <p class="font-bold text-gray-800 text-base mb-1">全天候型BBQスペース</p>
-                                    <p class="text-sm text-gray-600 leading-relaxed">しっかりとした屋根付きだから雨でも安心！合宿のメインイベント、BBQで最高に盛り上がろう！</p>
+                                    <p class="font-bold text-gray-800 text-lg mb-2">全天候型BBQスペース</p>
+                                    <p class="text-base text-gray-600 leading-relaxed">しっかりとした屋根付きだから雨でも安心！合宿のメインイベント、BBQで最高に盛り上がろう！</p>
                                 </div>
                                 <div class="rounded-xl overflow-hidden group">
-                                    <div class="relative h-48 overflow-hidden rounded-lg mb-3">
+                                    <div class="relative aspect-video overflow-hidden rounded-xl mb-4 shadow-sm">
                                         <img src="277498_0.jpg" alt="明るい大食堂" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <p class="font-bold text-gray-800 text-base mb-1">光が差し込む大食堂</p>
-                                    <p class="text-sm text-gray-600 leading-relaxed">大きな窓から自然光がたっぷり入る明るいダイニング。全員の顔を見ながら、楽しく食事ができます。</p>
+                                    <p class="font-bold text-gray-800 text-lg mb-2">光が差し込む大食堂</p>
+                                    <p class="text-base text-gray-600 leading-relaxed">大きな窓から自然光がたっぷり入る明るいダイニング。全員の顔を見ながら、楽しく食事ができます。</p>
                                 </div>
-                                <!-- 大広間 -->
-                                <div class="rounded-xl overflow-hidden group md:col-span-2 bg-gray-50 flex flex-col md:flex-row border border-gray-100 mt-2">
-                                    <div class="relative md:w-1/2 h-56 overflow-hidden">
+                                
+                                <!-- 大広間：PCでは左右2カラム、スマホでは上下 -->
+                                <div class="rounded-xl overflow-hidden group md:col-span-2 bg-gray-50 flex flex-col md:flex-row border border-gray-100 mt-4 shadow-sm">
+                                    <div class="relative w-full md:w-1/2 aspect-video md:aspect-auto overflow-hidden">
                                         <img src="277512_0.jpg" alt="大広間" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     </div>
-                                    <div class="p-5 md:p-8 flex flex-col justify-center md:w-1/2">
-                                        <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded inline-block w-fit mb-2">宴会・レクに最適</span>
-                                        <p class="font-bold text-gray-800 text-xl mb-2">夜の大宴会はここで！広々和室</p>
-                                        <p class="text-sm text-gray-600 leading-relaxed">大人数が集まっても余裕の広さを持つ大広間。夜のレクやゲーム大会、宴会はここでゴロゴロしながら楽しもう！最高の思い出になること間違いなし。</p>
+                                    <div class="p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
+                                        <span class="bg-primary/10 text-primary text-sm font-bold px-3 py-1 rounded-full inline-block w-fit mb-3">宴会・レクに最適</span>
+                                        <p class="font-bold text-gray-800 text-xl md:text-2xl mb-3">夜の大宴会はここで！広々和室</p>
+                                        <p class="text-base text-gray-600 leading-relaxed">大人数が集まっても余裕の広さを持つ大広間。夜のレクやゲーム大会、宴会はここでゴロゴロしながら楽しもう！最高の思い出になること間違いなし。</p>
                                     </div>
                                 </div>
                             </div>
@@ -291,20 +294,20 @@
                     </div>
                 </div>
 
-                <hr class="border-gray-100">
+                <hr class="border-gray-100 my-10">
 
                 <!-- 集合情報 -->
-                <div class="flex items-start">
-                    <div class="bg-orange-50 w-12 h-12 rounded-full flex items-center justify-center text-secondary flex-shrink-0 mr-4">
-                        <i class="fas fa-flag text-xl"></i>
+                <div class="flex items-start bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
+                    <div class="bg-orange-100 w-14 h-14 rounded-full flex items-center justify-center text-secondary flex-shrink-0 mr-5">
+                        <i class="fas fa-flag text-2xl"></i>
                     </div>
                     <div>
-                        <h4 class="text-lg font-bold mb-1">集合情報</h4>
-                        <p class="text-textDark">
-                            <span class="font-bold text-primary">9月6日(日) 9:30</span><br>
-                            東京駅 丸の内南口改札 <span class="text-xs text-red-500 border border-red-500 rounded px-1 ml-1 bg-red-50">改札外集合</span>
+                        <h4 class="text-xl font-bold mb-2">集合場所</h4>
+                        <p class="text-textDark text-lg">
+                            <span class="font-bold text-primary text-xl">9月6日(日) 9:30</span><br>
+                            東京駅 丸の内南口改札 <span class="text-sm text-red-500 border border-red-500 rounded px-2 py-0.5 ml-2 bg-red-50 font-bold">改札外集合</span>
                         </p>
-                        <p class="text-textLight text-sm mt-2"><i class="fas fa-train mr-1"></i> 10:00 特急踊り子5号 出発予定</p>
+                        <p class="text-textLight text-base mt-3 bg-white px-3 py-2 rounded-lg inline-block shadow-sm"><i class="fas fa-train mr-2 text-primary"></i> 10:00 特急踊り子5号 出発予定</p>
                     </div>
                 </div>
             </div>
@@ -318,135 +321,123 @@
             <p class="text-textLight text-sm tracking-widest mt-1 mb-10">旅行日程</p>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10">
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8 md:p-12">
             
-            <div class="mb-8 flex justify-between items-end border-b-2 border-primary/20 pb-4">
-                <h3 class="text-2xl font-serif font-bold text-textDark">1日目</h3>
-                <!-- 日付を修正 -->
-                <span class="text-lg font-medium text-primary bg-primary/10 px-4 py-1 rounded-full">9月6日 (日)</span>
+            <div class="mb-10 flex justify-between items-end border-b-2 border-primary/20 pb-4">
+                <h3 class="text-3xl font-serif font-bold text-textDark">1日目</h3>
+                <span class="text-lg md:text-xl font-medium text-primary bg-primary/10 px-5 py-2 rounded-full">9月6日 (日)</span>
             </div>
 
-            <!-- 崩れないモダンなタイムライン構造 (Flexbox & Tailwind Utilities) -->
-            <div class="relative border-l-2 border-gray-200 ml-3 md:ml-4 space-y-10 pb-4">
+            <!-- タイムライン -->
+            <div class="relative border-l-2 border-gray-200 ml-4 md:ml-8 space-y-12 pb-6">
                 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <!-- Timeline Dot -->
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">09:30</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-textDark">東京駅丸の内南口改札 集合</h4>
-                            <p class="text-sm text-textLight mt-1">※改札には入らずに待機してください。切符は駅で配布します。</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">09:30</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-textDark">東京駅丸の内南口改札 集合</h4>
+                            <p class="text-base text-textLight mt-2 leading-relaxed">※改札には入らずに待機してください。切符は駅で配布します。</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">10:00</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-textDark">特急踊り子5号 出発</h4>
-                            <p class="text-sm text-textLight mt-1"><i class="fas fa-subway mr-1"></i> 伊豆急下田方面へ</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">10:00</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-textDark">特急踊り子5号 出発</h4>
+                            <p class="text-base text-textLight mt-2"><i class="fas fa-subway mr-2"></i>伊豆急下田方面へ向かいます</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">12:28</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
-                                <h4 class="text-lg font-bold text-orange-800"><i class="fas fa-utensils mr-2"></i>河津駅到着・昼食・散策</h4>
-                                <p class="text-sm text-orange-700 mt-1">各自で昼食をとり、周辺を散策します。</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">12:28</div>
+                        <div class="mt-2 md:mt-0 flex-grow w-full">
+                            <div class="bg-orange-50 p-5 rounded-2xl border border-orange-100 w-full">
+                                <h4 class="text-xl font-bold text-orange-800"><i class="fas fa-utensils mr-2"></i>河津駅到着・昼食・散策</h4>
+                                <p class="text-base text-orange-700 mt-2">到着後、班ごとに各自で昼食をとり、周辺を自由に散策します。</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">14:40</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-red-500">河津駅前 集合</h4>
-                            <p class="text-sm text-textLight mt-1">遅れないように集まってください。</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">14:40</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-red-500">河津駅前 集合</h4>
+                            <p class="text-base text-textLight mt-2">電車に乗り遅れないよう、時間厳守で集まってください。</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">14:56</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-textDark">河津駅 出発</h4>
-                            <p class="text-sm text-textLight mt-1">伊豆急行線乗車（14:57 今井浜海岸駅到着）</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">14:56</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-textDark">河津駅 出発</h4>
+                            <p class="text-base text-textLight mt-2">伊豆急行線乗車（14:57 今井浜海岸駅到着予定）</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">15:07</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-textDark">サンライズガーデン 到着</h4>
-                            <p class="text-sm text-textLight mt-1">チェックイン、荷ほどき、自由時間。露天岩風呂も楽しめます！</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">15:07</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-textDark">サンライズガーデン 到着</h4>
+                            <p class="text-base text-textLight mt-2 leading-relaxed">チェックイン後、荷ほどきをして自由時間です。広々とした露天岩風呂に入ったり、館内で遊んだりできます。</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">18:00</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <div class="bg-red-50 p-4 rounded-xl border border-red-100">
-                                <h4 class="text-lg font-bold text-red-800"><i class="fas fa-fire mr-2"></i>BBQ開始！</h4>
-                                <p class="text-sm text-red-700 mt-1">みんなで協力して準備しましょう。</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">18:00</div>
+                        <div class="mt-2 md:mt-0 flex-grow w-full">
+                            <div class="bg-red-50 p-5 rounded-2xl border border-red-100 w-full">
+                                <h4 class="text-xl font-bold text-red-800"><i class="fas fa-fire mr-2"></i>BBQ開始！</h4>
+                                <p class="text-base text-red-700 mt-2">全天候型のBBQ場で夕食です。みんなで協力して準備し、美味しくいただきましょう。</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">20:00</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-textDark">BBQ終了・片付け</h4>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">20:00</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-textDark">BBQ終了・片付け</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-6 md:pl-8">
-                    <div class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1.5 ring-4 ring-white z-10"></div>
+                <div class="relative pl-8 md:pl-12">
+                    <div class="absolute w-5 h-5 bg-primary rounded-full -left-[11px] top-1 ring-4 ring-white z-10"></div>
                     <div class="flex flex-col md:flex-row md:items-start">
-                        <div class="text-xl font-bold text-primary w-24 flex-shrink-0 pt-0.5">21:00</div>
-                        <div class="mt-1 md:mt-0 flex-grow">
-                            <h4 class="text-lg font-bold text-textDark"><i class="fas fa-glass-cheers mr-2 text-yellow-500"></i>宴会開始</h4>
-                            <p class="text-sm text-textLight mt-1">花火や宴会で盛り上がろう！</p>
+                        <div class="text-2xl font-bold text-primary w-28 flex-shrink-0 pt-0.5">21:00</div>
+                        <div class="mt-2 md:mt-0 flex-grow">
+                            <h4 class="text-xl font-bold text-textDark"><i class="fas fa-glass-cheers mr-2 text-yellow-500"></i>宴会開始</h4>
+                            <p class="text-base text-textLight mt-2">大広間に集まってレクやゲーム、宴会で盛り上がりましょう！</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Day 2 & 3 Placeholder -->
-            <div class="mt-10 pt-6 border-t border-gray-200">
-                <div class="bg-gray-50 rounded-xl p-4 text-center cursor-pointer hover:bg-gray-100 transition-colors" onclick="alert('9月7日(月)・8日(火)の詳細は後日案内、または各班の行動計画に従います。')">
-                    <p class="font-bold text-textDark"><i class="fas fa-calendar-day mr-2 text-primary"></i> 2日目・3日目の予定</p>
-                    <p class="text-sm text-textLight mt-1">タップして確認</p>
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <div class="bg-gray-50 rounded-2xl p-6 text-center cursor-pointer hover:bg-gray-100 transition-colors shadow-sm" onclick="alert('9月7日(月)・8日(火)の詳細は後日案内、または各班の行動計画に従います。')">
+                    <p class="font-bold text-lg text-textDark"><i class="fas fa-calendar-day mr-2 text-primary text-xl"></i> 2日目・3日目の予定</p>
+                    <p class="text-base text-textLight mt-2">タップして確認</p>
                 </div>
             </div>
         </div>
@@ -459,45 +450,45 @@
             <p class="text-textLight text-sm tracking-widest mt-1 mb-10">注意事項</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-red-400 flex items-start">
-                <div class="text-red-400 text-2xl mr-4 mt-1"><i class="fas fa-clock"></i></div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-red-400 flex items-start">
+                <div class="text-red-400 text-3xl mr-5 mt-1"><i class="fas fa-clock"></i></div>
                 <div>
-                    <h4 class="font-bold text-lg mb-1">時間を厳守</h4>
-                    <p class="text-sm text-textLight">集合時間や出発時間を守って行動しましょう。遅れそうな場合はすぐに連絡を。</p>
+                    <h4 class="font-bold text-xl mb-2">時間を厳守</h4>
+                    <p class="text-base text-textLight leading-relaxed">集合時間や出発時間を守って行動しましょう。遅れそうな場合はすぐに役員へ連絡をしてください。</p>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-yellow-400 flex items-start">
-                <div class="text-yellow-400 text-2xl mr-4 mt-1"><i class="fas fa-wallet"></i></div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-yellow-400 flex items-start">
+                <div class="text-yellow-400 text-3xl mr-5 mt-1"><i class="fas fa-wallet"></i></div>
                 <div>
-                    <h4 class="font-bold text-lg mb-1">貴重品の管理</h4>
-                    <p class="text-sm text-textLight">財布やスマホなどの貴重品は肌身離さず、自己責任で管理しましょう。</p>
+                    <h4 class="font-bold text-xl mb-2">貴重品の管理</h4>
+                    <p class="text-base text-textLight leading-relaxed">財布やスマホなどの貴重品は肌身離さず、自己責任でしっかりと管理しましょう。</p>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-blue-400 flex items-start">
-                <div class="text-blue-400 text-2xl mr-4 mt-1"><i class="fas fa-volume-mute"></i></div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-blue-400 flex items-start">
+                <div class="text-blue-400 text-3xl mr-5 mt-1"><i class="fas fa-volume-mute"></i></div>
                 <div>
-                    <h4 class="font-bold text-lg mb-1">マナーを守る</h4>
-                    <p class="text-sm text-textLight">大声・騒音は禁止です。周りの宿泊客や近隣の方の迷惑にならないよう行動しましょう。</p>
+                    <h4 class="font-bold text-xl mb-2">マナーを守る</h4>
+                    <p class="text-base text-textLight leading-relaxed">深夜の大声・騒音は禁止です。周りの宿泊客や近隣の方の迷惑にならないよう配慮ある行動をしましょう。</p>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-green-400 flex items-start">
-                <div class="text-green-400 text-2xl mr-4 mt-1"><i class="fas fa-heartbeat"></i></div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-green-400 flex items-start">
+                <div class="text-green-400 text-3xl mr-5 mt-1"><i class="fas fa-heartbeat"></i></div>
                 <div>
-                    <h4 class="font-bold text-lg mb-1">体調管理・防寒対策</h4>
-                    <p class="text-sm text-textLight">防寒対策を徹底し、体調が悪くなった場合は無理せずすぐに役員や仲間に連絡しましょう。</p>
+                    <h4 class="font-bold text-xl mb-2">体調管理・防寒対策</h4>
+                    <p class="text-base text-textLight leading-relaxed">防寒対策を徹底し、体調が悪くなった場合は無理せずすぐに役員や仲間に伝えてください。</p>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-purple-400 md:col-span-2 flex items-start">
-                <div class="text-purple-400 text-2xl mr-4 mt-1"><i class="fas fa-car"></i></div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border-l-8 border-purple-400 md:col-span-2 flex items-start">
+                <div class="text-purple-400 text-3xl mr-5 mt-1"><i class="fas fa-car"></i></div>
                 <div>
-                    <h4 class="font-bold text-lg mb-1">レンタカーに関する注意</h4>
-                    <p class="text-sm text-textLight">レンタカーを借りる際には、事前に役員へ連絡をしてください。安全運転を心がけましょう。</p>
+                    <h4 class="font-bold text-xl mb-2">レンタカーに関する注意</h4>
+                    <p class="text-base text-textLight leading-relaxed">自由時間にレンタカーを借りる班は、必ず事前に役員へ連絡をしてください。安全運転を第一に心がけましょう。</p>
                 </div>
             </div>
 
@@ -511,22 +502,22 @@
             <p class="text-textLight text-sm tracking-widest mt-1 mb-10">持ち物リスト</p>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 md:p-10">
-            <p class="text-sm text-textLight mb-6 text-center"><i class="fas fa-info-circle mr-1"></i> タップしてチェックを付けられます。準備の確認に活用してください。</p>
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sm:p-8 md:p-12">
+            <p class="text-base text-textLight mb-8 text-center bg-gray-50 py-3 rounded-xl"><i class="fas fa-info-circle mr-2 text-primary"></i> タップしてチェックを付けられます。準備の確認に活用してください。</p>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6" id="checklist-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-5 gap-x-6" id="checklist-container">
                 <!-- Javascript will populate this list -->
             </div>
 
-            <div class="mt-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
-                <h4 class="font-bold text-lg mb-3 border-b pb-2"><i class="fas fa-bath text-primary mr-2"></i>施設のアメニティ</h4>
-                <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm text-textDark">
-                    <li><i class="fas fa-check text-green-500 mr-1"></i> シャンプー</li>
-                    <li><i class="fas fa-check text-green-500 mr-1"></i> リンス</li>
-                    <li><i class="fas fa-check text-green-500 mr-1"></i> ボディソープ</li>
-                    <li><i class="fas fa-check text-green-500 mr-1"></i> ドライヤー</li>
+            <div class="mt-12 bg-indigo-50/50 rounded-2xl p-6 md:p-8 border border-indigo-100">
+                <h4 class="font-bold text-xl mb-4 border-b-2 border-primary/20 pb-2 inline-block"><i class="fas fa-bath text-primary mr-2"></i>施設のアメニティ情報</h4>
+                <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 text-base text-textDark mt-4">
+                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> シャンプー</li>
+                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> リンス</li>
+                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> ボディソープ</li>
+                    <li class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm"><i class="fas fa-check text-green-500 mr-2"></i> ドライヤー</li>
                 </ul>
-                <p class="text-xs text-red-500 mt-3">※ドライヤーは数が少ない可能性があるため、必要な方は持参をおすすめします。</p>
+                <p class="text-sm md:text-base text-red-500 mt-5 bg-red-50 p-3 rounded-lg border border-red-100"><i class="fas fa-exclamation-triangle mr-2"></i>※ドライヤーは数が少ない可能性があるため、必要な方はご自身での持参をおすすめします。</p>
             </div>
         </div>
     </section>
@@ -534,11 +525,11 @@
 </main>
 
 <!-- Footer -->
-<footer class="bg-white border-t border-gray-200 py-10 mt-10">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-        <h2 class="font-serif text-2xl text-primary mb-4">HAPPY TRAVELS</h2>
-        <p class="text-textLight text-sm">ルールを守って、最高の思い出を作りましょう！</p>
-        <div class="mt-8 text-xs text-gray-400">
+<footer class="bg-white border-t border-gray-200 py-12 mt-10">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+        <h2 class="font-serif text-3xl text-primary mb-4">HAPPY TRAVELS</h2>
+        <p class="text-textLight text-base">ルールを守って、最高の思い出を作りましょう！</p>
+        <div class="mt-10 text-sm text-gray-400">
             &copy; 2026 HAIKARA. All Trip Rights Reserved.
         </div>
     </div>
@@ -618,7 +609,7 @@
         "学生証", "身分証明書", "散策用バッグ", "折り畳み傘", "防寒具", 
         "タオル", "履き馴れた靴", "予備の靴下", "パジャマ", "ハンカチ", 
         "ティッシュ", "バスタオル", "歯磨きセット", "免許証", 
-        "みんなで遊べるもの (カード等)", "ドライヤー (持参推奨)"
+        "みんなで遊べるもの", "ドライヤー (推奨)"
     ];
 
     const checklistContainer = document.getElementById('checklist-container');
@@ -627,11 +618,11 @@
     items.forEach((item, index) => {
         const isChecked = savedChecks[index] || false;
         const div = document.createElement('div');
-        div.className = `flex items-center cursor-pointer group transition-all duration-200 select-none p-2 rounded-lg hover:bg-gray-50 ${isChecked ? 'text-gray-400 line-through' : 'text-textDark'}`;
+        div.className = `flex items-center cursor-pointer group transition-all duration-200 select-none p-3 rounded-xl border ${isChecked ? 'bg-gray-50 border-gray-200 text-gray-400 line-through' : 'bg-white border-gray-100 shadow-sm text-textDark hover:border-primary/50 hover:shadow-md'}`;
         
         div.innerHTML = `
-            <i class="far ${isChecked ? 'fa-check-square text-primary' : 'fa-square text-gray-300 group-hover:text-primary'} text-xl mr-3 transition-colors"></i>
-            <span class="font-medium">${item}</span>
+            <i class="far ${isChecked ? 'fa-check-square text-primary' : 'fa-square text-gray-300 group-hover:text-primary'} text-2xl mr-3 transition-colors"></i>
+            <span class="font-medium text-base">${item}</span>
         `;
         
         div.addEventListener('click', function() {
@@ -639,17 +630,11 @@
             const icon = this.querySelector('i');
             
             if (isNowChecked) {
-                this.classList.add('line-through', 'text-gray-400');
-                this.classList.remove('text-textDark');
-                icon.classList.replace('fa-square', 'fa-check-square');
-                icon.classList.remove('text-gray-300', 'group-hover:text-primary');
-                icon.classList.add('text-primary');
+                this.className = 'flex items-center cursor-pointer group transition-all duration-200 select-none p-3 rounded-xl border bg-gray-50 border-gray-200 text-gray-400 line-through';
+                icon.className = 'far fa-check-square text-primary text-2xl mr-3 transition-colors';
             } else {
-                this.classList.remove('line-through', 'text-gray-400');
-                this.classList.add('text-textDark');
-                icon.classList.replace('fa-check-square', 'fa-square');
-                icon.classList.remove('text-primary');
-                icon.classList.add('text-gray-300', 'group-hover:text-primary');
+                this.className = 'flex items-center cursor-pointer group transition-all duration-200 select-none p-3 rounded-xl border bg-white border-gray-100 shadow-sm text-textDark hover:border-primary/50 hover:shadow-md';
+                icon.className = 'far fa-square text-gray-300 group-hover:text-primary text-2xl mr-3 transition-colors';
             }
 
             savedChecks[index] = isNowChecked;
