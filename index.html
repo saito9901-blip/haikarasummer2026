@@ -16,6 +16,10 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
@@ -82,12 +86,14 @@
             transform: translateY(0);
         }
 
-        /* カスタムスクロールバー (Lightbox用) */
+        /* カスタムスクロールバー */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
@@ -95,6 +101,15 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
+        }
+
+        /* タブのスクロール隠し用 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -108,11 +123,12 @@
                 <a href="#" class="font-serif text-xl font-bold text-white drop-shadow-md transition-colors nav-brand">HAIKARA 2026</a>
             </div>
             <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-6 font-medium">
+                <div class="ml-10 flex items-baseline space-x-5 lg:space-x-6 font-medium text-sm lg:text-base">
                     <a href="#plan" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">PLAN</a>
                     <a href="#facility" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">FACILITY</a>
                     <a href="#schedule" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">SCHEDULE</a>
                     <a href="#caution" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">CAUTION</a>
+                    <a href="#area-guide" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">AREA GUIDE</a>
                     <a href="#checklist" class="text-white drop-shadow-md hover:text-primary transition-colors nav-link">CHECK LIST</a>
                 </div>
             </div>
@@ -127,10 +143,11 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full left-0 top-full border-t border-gray-100">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-            <a href="#plan" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">PLAN (旅のプラン)</a>
-            <a href="#facility" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">FACILITY (施設案内)</a>
+            <a href="#plan" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">PLAN (旅の基本)</a>
+            <a href="#facility" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">FACILITY (施設)</a>
             <a href="#schedule" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">SCHEDULE (日程)</a>
-            <a href="#caution" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">CAUTION (注意事項)</a>
+            <a href="#caution" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">CAUTION (注意)</a>
+            <a href="#area-guide" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">AREA GUIDE (周辺・アクセス)</a>
             <a href="#checklist" class="block px-3 py-3 text-textDark hover:text-primary hover:bg-gray-50 rounded-md font-medium">CHECK LIST (持ち物)</a>
         </div>
     </div>
@@ -167,7 +184,7 @@
         </div>
         
         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="h-64 sm:h-80 md:h-[450px] overflow-hidden relative group">
+            <div class="h-64 sm:h-80 md:h-[450px] overflow-hidden relative group bg-gray-200">
                 <img src="image.jpg" alt="サンライズガーデン外観" class="w-full h-full object-cover lightbox-trigger cursor-zoom-in group-hover:scale-105 transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end pointer-events-none">
                     <h3 class="text-white text-2xl md:text-3xl font-bold p-6 w-full flex justify-between items-center">
@@ -180,36 +197,43 @@
                 </div>
             </div>
             
-            <div class="p-4 sm:p-8 md:p-10 space-y-10">
+            <div class="p-4 sm:p-8 md:p-10 space-y-8">
                 <!-- 基本情報 -->
-                <div class="flex flex-col md:flex-row items-start gap-6">
-                    <div class="flex flex-col w-full md:w-1/3">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-indigo-50 w-12 h-12 rounded-full flex items-center justify-center text-primary flex-shrink-0 mr-4">
-                                <i class="fas fa-map-marked-alt text-xl"></i>
-                            </div>
-                            <h4 class="text-xl font-bold">アクセス情報</h4>
-                        </div>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100">
+                    <div class="bg-indigo-100 w-14 h-14 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                        <i class="fas fa-building text-2xl"></i>
+                    </div>
+                    <div class="w-full">
+                        <h4 class="text-xl font-bold mb-2">施設情報</h4>
                         <p class="text-textLight text-sm mb-1">〒413-0503 静岡県賀茂郡河津町見高109-6</p>
-                        <p class="text-textDark font-medium text-base mb-4">今井浜海岸駅から徒歩7分<br>今井浜海水浴場まで徒歩7分</p>
-                        <div class="flex flex-col gap-3 mb-4">
-                            <a href="tel:0557-37-5155" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
+                        <p class="text-textDark font-medium text-base mb-4"><i class="fas fa-train mr-1 text-gray-400"></i> 今井浜海岸駅から徒歩7分<br><i class="fas fa-umbrella-beach mr-1 text-gray-400"></i> 今井浜海水浴場まで徒歩7分</p>
+                        
+                        <div class="flex flex-wrap gap-3">
+                            <a href="tel:0557-37-5155" class="inline-flex items-center justify-center text-primary bg-white hover:bg-primary hover:text-white border border-primary font-medium text-sm px-4 py-2 rounded-full transition-colors shadow-sm">
                                 <i class="fas fa-phone-alt mr-2"></i> 0557-37-5155
                             </a>
-                            <!-- リンク先を修正 -->
-                            <a href="https://www.stagevilla.co.jp/villa/10614" target="_blank" class="inline-flex items-center justify-center text-primary hover:bg-primary hover:text-white border border-primary font-medium text-base px-4 py-2 rounded-full transition-colors w-full">
+                            <a href="https://www.stagevilla.co.jp/villa/10614" target="_blank" class="inline-flex items-center justify-center text-white bg-primary hover:bg-indigo-500 border border-transparent font-medium text-sm px-4 py-2 rounded-full transition-colors shadow-sm">
                                 <i class="fas fa-external-link-alt mr-2"></i> 公式サイトを見る
                             </a>
+                            <a href="#area-guide" class="inline-flex items-center justify-center text-gray-600 bg-gray-100 hover:bg-gray-200 border border-gray-200 font-medium text-sm px-4 py-2 rounded-full transition-colors shadow-sm">
+                                <i class="fas fa-map mr-2"></i> 周辺マップを見る
+                            </a>
                         </div>
-                    </div>
-
-                    <!-- Google Map -->
-                    <div class="w-full md:w-2/3 rounded-2xl overflow-hidden shadow-sm border border-gray-200 relative group">
-                        <iframe src="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-72 md:h-80" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
-                <hr class="border-gray-100 my-8">
+                <!-- 宿泊先マップ (広域表示に変更) -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><i class="fas fa-map-marker-alt mr-2"></i>宿泊先マップ</h4>
+                    <div class="w-full h-64 sm:h-80 rounded-2xl overflow-hidden shadow-inner border border-gray-200 mb-3">
+                        <iframe src="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="text-right">
+                        <a href="https://maps.google.com/maps?q=静岡県賀茂郡河津町見高109-6" target="_blank" class="inline-flex items-center bg-primary/10 text-primary font-bold hover:bg-primary hover:text-white px-5 py-2 rounded-full transition-colors border border-primary/20 text-sm shadow-sm">
+                            <i class="fas fa-external-link-alt mr-2"></i>Google Mapsで開く
+                        </a>
+                    </div>
+                </div>
 
                 <!-- 集合情報 -->
                 <div class="flex items-start bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
@@ -218,7 +242,6 @@
                     </div>
                     <div class="w-full">
                         <h4 class="text-xl font-bold mb-2">初日の集合場所</h4>
-                        <!-- スマホでの改行を修正 -->
                         <div class="text-textDark text-lg mt-1 flex flex-wrap items-center gap-y-2 gap-x-1 sm:gap-x-2">
                             <span class="font-bold text-primary text-xl w-full block mb-1">9月6日(日) 9:30</span>
                             <span class="inline-block">東京駅 丸の内南口改札</span>
@@ -231,7 +254,7 @@
         </div>
     </section>
 
-    <!-- FACILITY Section (新規追加) -->
+    <!-- FACILITY Section -->
     <section id="facility" class="pt-8 fade-in">
         <div class="text-center">
             <h2 class="text-3xl font-serif text-primary">FACILITY</h2>
@@ -258,10 +281,10 @@
                     <p class="text-sm text-gray-600">1Fは食堂やBBQなどの共有スペース、2F・3Fは客室と大広間などのくつろぎエリアになっています。</p>
                 </div>
 
-                <!-- 客室 (ユーザー提供画像を使用) -->
+                <!-- 客室 -->
                 <div class="bg-white p-5 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
                     <h5 class="font-bold text-xl text-primary mb-4 flex items-center"><i class="fas fa-bed mr-2 text-2xl w-8"></i>ゆったりくつろげる客室</h5>
-                    <div class="rounded-xl overflow-hidden group relative cursor-zoom-in flex-grow aspect-[4/3] mb-4">
+                    <div class="rounded-xl overflow-hidden group relative cursor-zoom-in flex-grow aspect-[4/3] mb-4 bg-gray-200">
                         <img src="image (1).jpg" alt="木の温もりを感じる広々とした客室" class="lightbox-trigger w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none flex justify-center items-center">
                             <i class="fas fa-search-plus text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md"></i>
@@ -364,32 +387,35 @@
 
                     <!-- キッチン -->
                     <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100">
-                        <h6 class="font-bold text-orange-800 mb-3 border-b border-orange-200 pb-2"><i class="fas fa-utensils mr-2"></i>キッチン周り</h6>
+                        <h6 class="font-bold text-orange-800 mb-3 border-b border-orange-200 pb-2"><i class="fas fa-utensils mr-2"></i>キッチン・食事</h6>
                         <ul class="grid grid-cols-2 gap-y-2 gap-x-4 text-sm text-gray-700">
-                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 冷蔵庫</li>
-                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 電子レンジ</li>
-                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 炊飯器</li>
-                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 調理器具一式</li>
-                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 食器類</li>
-                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> BBQ設備</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 大食堂</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 屋根付きBBQ場</li>
+                            <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2"></i> 電子レンジ/冷蔵庫</li>
                         </ul>
                     </div>
 
                     <!-- その他 -->
                     <div class="bg-green-50/50 p-4 rounded-xl border border-green-100 md:col-span-2">
-                        <h6 class="font-bold text-green-800 mb-3 border-b border-green-200 pb-2"><i class="fas fa-tv mr-2"></i>その他設備</h6>
+                        <h6 class="font-bold text-green-800 mb-3 border-b border-green-200 pb-2"><i class="fas fa-gamepad mr-2"></i>共有・娯楽設備</h6>
                         <ul class="grid grid-cols-2 sm:grid-cols-4 gap-y-2 gap-x-4 text-sm text-gray-700">
-                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> エアコン</li>
-                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> テレビ</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> プレイルーム</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 卓球台</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> ビリヤード</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> カラオケラウンジ</li>
                             <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 洗濯機</li>
                             <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 駐車場</li>
-                            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Wi-Fi (要確認)</li>
                         </ul>
                     </div>
                 </div>
                 
-                <p class="text-xs md:text-sm text-red-500 mt-4"><i class="fas fa-exclamation-triangle mr-1"></i>※1 ドライヤーは備え付けがありますが、数が少ない可能性があるため、必要な方はご自身での持参をおすすめします。</p>
-                <p class="text-xs md:text-sm text-red-500 mt-1"><i class="fas fa-exclamation-triangle mr-1"></i>パジャマやタオル類、歯ブラシなどの個人用アメニティは用意がありません。必ずご持参ください。</p>
+                <div class="mt-5 p-4 bg-red-50 border border-red-100 rounded-xl">
+                    <p class="text-sm font-bold text-red-600 mb-1"><i class="fas fa-exclamation-triangle mr-1"></i> ご注意</p>
+                    <ul class="text-xs md:text-sm text-red-500 list-disc list-inside space-y-1">
+                        <li>※1 ドライヤーは備え付けがありますが、数が少ない可能性があるため、必要な方はご持参をおすすめします。</li>
+                        <li><strong>パジャマやタオル類、歯ブラシなどの個人用アメニティは用意がありません。必ずご持参ください。</strong></li>
+                    </ul>
+                </div>
             </div>
 
         </div>
@@ -441,7 +467,7 @@
                         <div class="mt-2 md:mt-0 flex-grow w-full">
                             <div class="bg-orange-50 p-5 rounded-2xl border border-orange-100 w-full">
                                 <h4 class="text-xl font-bold text-orange-800"><i class="fas fa-utensils mr-2"></i>河津駅到着・昼食・散策</h4>
-                                <p class="text-base text-orange-700 mt-2">到着後、昼食をとり、周辺を自由に散策します。</p>
+                                <p class="text-base text-orange-700 mt-2">到着後、昼食をとり周辺を自由に散策します。AREA GUIDEを参考にしてください。</p>
                             </div>
                         </div>
                     </div>
@@ -516,9 +542,14 @@
             </div>
 
             <div class="mt-12 pt-8 border-t border-gray-200">
-                <div class="bg-gray-50 rounded-2xl p-6 text-center cursor-pointer hover:bg-gray-100 transition-colors shadow-sm" onclick="alert('9月7日(月)・8日(火)の詳細は後日案内、行動計画に従います。')">
+                <div class="bg-gray-50 rounded-2xl p-6 text-center cursor-pointer hover:bg-gray-100 transition-colors shadow-sm" id="day2-trigger">
                     <p class="font-bold text-lg text-textDark"><i class="fas fa-calendar-day mr-2 text-primary text-xl"></i> 2日目・3日目の予定</p>
-                    <p class="text-base text-textLight mt-2">タップして確認</p>
+                    <p class="text-base text-textLight mt-2" id="day2-text">タップして確認</p>
+                    
+                    <div id="day2-content" class="hidden mt-4 pt-4 border-t border-gray-200 text-left text-textDark animate-[pulse_0.3s_ease-in-out]">
+                        <p class="mb-2 font-bold text-primary">2日目・3日目の予定について</p>
+                        <p class="text-sm md:text-base leading-relaxed">9月7日(月)・8日(火)の詳細は後日別途ご案内します。当日は行動計画および役員の指示に従って行動してください。</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -576,6 +607,235 @@
         </div>
     </section>
 
+    <!-- AREA GUIDE Section (移動・情報拡充) -->
+    <section id="area-guide" class="pt-8 fade-in">
+        <div class="text-center">
+            <h2 class="text-3xl font-serif text-primary">AREA GUIDE</h2>
+            <p class="text-textLight text-sm tracking-widest mt-1 mb-10">周辺施設・アクセス</p>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-4 md:p-8">
+            
+            <!-- 周辺施設 Map (Leaflet) -->
+            <div class="w-full h-80 md:h-[450px] rounded-2xl overflow-hidden shadow-inner border border-gray-200 mb-8 relative z-0">
+                <div id="area-map" class="w-full h-full"></div>
+            </div>
+
+            <!-- タブ切り替えボタン -->
+            <div class="flex space-x-2 md:space-x-4 mb-6 overflow-x-auto pb-3 hide-scrollbar justify-start md:justify-center px-1">
+                <button class="area-tab-btn active flex-shrink-0 px-5 py-2.5 rounded-full font-bold text-sm bg-primary text-white shadow-sm transition-colors border border-primary" data-target="guide-all" data-category="all">
+                    <i class="fas fa-map-marked-alt mr-1"></i> すべて
+                </button>
+                <button class="area-tab-btn flex-shrink-0 px-5 py-2.5 rounded-full font-bold text-sm bg-gray-50 text-gray-500 hover:bg-gray-100 shadow-sm transition-colors border border-gray-200" data-target="guide-shopping" data-category="shop">
+                    <i class="fas fa-shopping-cart mr-1"></i> 買物・コンビニ
+                </button>
+                <button class="area-tab-btn flex-shrink-0 px-5 py-2.5 rounded-full font-bold text-sm bg-gray-50 text-gray-500 hover:bg-gray-100 shadow-sm transition-colors border border-gray-200" data-target="guide-sightseeing" data-category="sightseeing">
+                    <i class="fas fa-camera-retro mr-1"></i> 観光・レジャー
+                </button>
+                <button class="area-tab-btn flex-shrink-0 px-5 py-2.5 rounded-full font-bold text-sm bg-gray-50 text-gray-500 hover:bg-gray-100 shadow-sm transition-colors border border-gray-200" data-target="guide-gourmet" data-category="gourmet">
+                    <i class="fas fa-utensils mr-1"></i> グルメ・温泉
+                </button>
+            </div>
+
+            <!-- タブコンテンツ: 買物・コンビニ -->
+            <div id="guide-shopping" class="area-tab-content grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-blue-50/30 p-4 rounded-xl border border-blue-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mr-4 flex-shrink-0"><i class="fas fa-store"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">ファミリーマート 見高店</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">宿から一番近いコンビニ。ちょっとした買い出しに便利です。<br><span class="text-gray-600 font-medium">【営業時間】24時間営業</span></p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町見高1264-1</p>
+                            <div class="flex items-center text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約2分 / <i class="fas fa-walking mr-1 ml-1"></i>徒歩 約15分
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=ファミリーマート見高店" target="_blank" class="inline-block text-xs font-bold text-blue-500 border border-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50/30 p-4 rounded-xl border border-blue-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mr-4 flex-shrink-0"><i class="fas fa-shopping-basket"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">スーパーあおき 河津店</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">BBQの食材やお酒の買い出しのメインに。品揃え豊富で新鮮な魚介も。<br><span class="text-gray-600 font-medium">【営業時間】9:30～19:30</span></p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町浜142-1</p>
+                            <div class="flex items-center text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約5分 / <i class="fas fa-train mr-1 ml-1"></i>河津駅近く
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=スーパーあおき河津店" target="_blank" class="inline-block text-xs font-bold text-blue-500 border border-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50/30 p-4 rounded-xl border border-blue-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mr-4 flex-shrink-0"><i class="fas fa-shopping-basket"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">マックスバリュ 河津店</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">あおきの近くにある大型スーパー。必要なものはだいたい揃います。<br><span class="text-gray-600 font-medium">【営業時間】7:00～23:30</span></p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町笹原356-1</p>
+                            <div class="flex items-center text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約5分 / <i class="fas fa-train mr-1 ml-1"></i>河津駅近く
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=マックスバリュ河津店" target="_blank" class="inline-block text-xs font-bold text-blue-500 border border-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50/30 p-4 rounded-xl border border-blue-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mr-4 flex-shrink-0"><i class="fas fa-pills"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">ココカラファイン 河津店</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">日用品、薬、化粧品などの急な買い物に。虫除けや日焼け止めもここで。<br><span class="text-gray-600 font-medium">【営業時間】9:00～21:00</span></p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町浜164-1</p>
+                            <div class="flex items-center text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約5分 / <i class="fas fa-train mr-1 ml-1"></i>河津駅近く
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=ココカラファイン河津店" target="_blank" class="inline-block text-xs font-bold text-blue-500 border border-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- タブコンテンツ: 観光・レジャー -->
+            <div id="guide-sightseeing" class="area-tab-content grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-green-50/30 p-4 rounded-xl border border-green-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center text-green-600 mr-4 flex-shrink-0"><i class="fas fa-umbrella-beach"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">今井浜海水浴場</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">伊豆有数の水質を誇る美しいビーチ。朝の散歩や水遊び、写真撮影に最適。</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町見高</p>
+                            <div class="flex items-center text-xs font-medium text-green-700 bg-green-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-walking mr-1"></i>徒歩 約7分
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=今井浜海水浴場" target="_blank" class="inline-block text-xs font-bold text-green-600 border border-green-300 px-3 py-1.5 rounded-full hover:bg-green-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-green-50/30 p-4 rounded-xl border border-green-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center text-green-600 mr-4 flex-shrink-0"><i class="fas fa-paw"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">体感型動物園 iZoo（イズー）</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">日本最大の爬虫類・両生類の動物園。ゾウガメに乗ったり、ヘビと触れ合えたり体験がいっぱい。</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町浜406-2</p>
+                            <div class="flex items-center text-xs font-medium text-green-700 bg-green-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約10分
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=iZoo" target="_blank" class="inline-block text-xs font-bold text-green-600 border border-green-300 px-3 py-1.5 rounded-full hover:bg-green-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-green-50/30 p-4 rounded-xl border border-green-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center text-green-600 mr-4 flex-shrink-0"><i class="fas fa-water"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">河津七滝（かわづななだる）</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">7つの滝を巡る約1.5kmのハイキングコース。マイナスイオンたっぷりでリフレッシュできます。</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町梨本</p>
+                            <div class="flex items-center text-xs font-medium text-green-700 bg-green-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約20分 / <i class="fas fa-bus mr-1 ml-1"></i>河津駅からバス
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=河津七滝" target="_blank" class="inline-block text-xs font-bold text-green-600 border border-green-300 px-3 py-1.5 rounded-full hover:bg-green-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50/30 p-4 rounded-xl border border-green-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center text-green-600 mr-4 flex-shrink-0"><i class="fas fa-fish"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">下田海中水族館</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">自然の入り江を利用した水族館。イルカが頭上をジャンプするショーが間近で見られます。</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県下田市3-22-31</p>
+                            <div class="flex items-center text-xs font-medium text-green-700 bg-green-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約25分 / <i class="fas fa-train mr-1 ml-1"></i>伊豆急下田駅方面
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=下田海中水族館" target="_blank" class="inline-block text-xs font-bold text-green-600 border border-green-300 px-3 py-1.5 rounded-full hover:bg-green-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- タブコンテンツ: グルメ・温泉 -->
+            <div id="guide-gourmet" class="area-tab-content grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div class="bg-orange-50/30 p-4 rounded-xl border border-orange-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-orange-100 w-10 h-10 rounded-full flex items-center justify-center text-orange-500 mr-4 flex-shrink-0"><i class="fas fa-leaf"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">わさび園かどや (孤独のグルメ登場店)</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">自分で生わさびをすって食べる「わさび丼」が大人気。河津七滝のすぐ近く。行列必至！</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町梨本371-1</p>
+                            <div class="flex items-center text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約20分
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=わさび園かどや" target="_blank" class="inline-block text-xs font-bold text-orange-500 border border-orange-300 px-3 py-1.5 rounded-full hover:bg-orange-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50/30 p-4 rounded-xl border border-orange-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-orange-100 w-10 h-10 rounded-full flex items-center justify-center text-orange-500 mr-4 flex-shrink-0"><i class="fas fa-fish"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">伊豆海鮮 どんぶりや</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">河津駅前にある海鮮丼のお店。新鮮な地魚をランチで食べるのにおすすめ。ボリューム満点。</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町浜142-2</p>
+                            <div class="flex items-center text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約5分 / <i class="fas fa-train mr-1 ml-1"></i>河津駅前
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=伊豆海鮮どんぶりや 河津" target="_blank" class="inline-block text-xs font-bold text-orange-500 border border-orange-300 px-3 py-1.5 rounded-full hover:bg-orange-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50/30 p-4 rounded-xl border border-orange-100 flex flex-col justify-between">
+                    <div class="flex items-start">
+                        <div class="bg-orange-100 w-10 h-10 rounded-full flex items-center justify-center text-orange-500 mr-4 flex-shrink-0"><i class="fas fa-hot-tub"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">踊り子温泉会館 (日帰り温泉)</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">河津川沿いにある町営の温泉施設。広い露天風呂やサウナでリラックス。タオルは有料レンタルあり。</p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町峰457-1</p>
+                            <div class="flex items-center text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded inline-block">
+                                <i class="fas fa-car mr-1"></i>車 約10分
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="https://maps.google.com/?q=踊り子温泉会館" target="_blank" class="inline-block text-xs font-bold text-orange-500 border border-orange-300 px-3 py-1.5 rounded-full hover:bg-orange-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- CHECK LIST Section -->
     <section id="checklist" class="pt-8 pb-16 fade-in">
         <div class="text-center">
@@ -592,7 +852,7 @@
             
             <div class="mt-8 text-center">
                 <a href="#facility" class="inline-block text-primary hover:text-white border border-primary hover:bg-primary px-6 py-2 rounded-full transition-colors text-sm font-medium">
-                    アメニティ・設備情報を確認する <i class="fas fa-arrow-up ml-1"></i>
+                    アメニティ・設備情報を再確認する <i class="fas fa-arrow-up ml-1"></i>
                 </a>
             </div>
         </div>
@@ -684,6 +944,151 @@
         observer.observe(element);
     });
 
+    // 2日目・3日目の予定トグル
+    const day2Trigger = document.getElementById('day2-trigger');
+    const day2Content = document.getElementById('day2-content');
+    const day2Text = document.getElementById('day2-text');
+    
+    if (day2Trigger && day2Content) {
+        day2Trigger.addEventListener('click', () => {
+            day2Content.classList.toggle('hidden');
+            if (day2Content.classList.contains('hidden')) {
+                day2Text.textContent = 'タップして確認';
+            } else {
+                day2Text.textContent = 'タップして閉じる';
+            }
+        });
+    }
+
+    // --- Leaflet Map 初期化 & タブ切り替えロジック ---
+    let areaMap;
+    let markersLayer;
+    let mapLocations = [];
+
+    const initMap = () => {
+        // マップの初期化
+        areaMap = L.map('area-map').setView([34.7465, 138.9950], 15);
+
+        // OpenStreetMapタイルレイヤーを追加
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(areaMap);
+
+        // マーカーを管理するレイヤーグループ
+        markersLayer = L.featureGroup().addTo(areaMap);
+
+        // 宿のカスタムアイコン
+        const hotelIcon = L.divIcon({
+            html: '<div class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white"><i class="fas fa-hotel"></i></div>',
+            className: '',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16],
+            popupAnchor: [0, -16]
+        });
+
+        const createIcon = (iconClass, bgColor) => {
+            return L.divIcon({
+                html: `<div class="${bgColor} text-white w-7 h-7 rounded-full flex items-center justify-center shadow-md border-2 border-white text-xs"><i class="${iconClass}"></i></div>`,
+                className: '',
+                iconSize: [28, 28],
+                iconAnchor: [14, 14],
+                popupAnchor: [0, -14]
+            });
+        };
+
+        const icons = {
+            shop: createIcon('fas fa-shopping-basket', 'bg-blue-500'),
+            sightseeing: createIcon('fas fa-umbrella-beach', 'bg-green-500'),
+            gourmet: createIcon('fas fa-utensils', 'bg-orange-500')
+        };
+
+        mapLocations = [
+            { id: 'hotel', category: 'hotel', lat: 34.7465, lng: 138.9984, icon: hotelIcon, popup: '<b class="text-primary">サンライズガーデン</b><br>今回の宿泊先です。' },
+            { category: 'shop', lat: 34.7456, lng: 138.9958, icon: icons.shop, popup: '<b>ファミマ 見高店</b><br>最寄りのコンビニ' },
+            { category: 'shop', lat: 34.7490, lng: 138.9915, icon: icons.shop, popup: '<b>スーパーあおき</b><br>BBQの買い出しに便利' },
+            { category: 'shop', lat: 34.7495, lng: 138.9920, icon: icons.shop, popup: '<b>マックスバリュ</b><br>大型スーパー' },
+            { category: 'shop', lat: 34.7485, lng: 138.9930, icon: icons.shop, popup: '<b>ココカラファイン</b><br>日用品・薬の買い出しに' },
+            { category: 'sightseeing', lat: 34.7430, lng: 138.9955, icon: icons.sightseeing, popup: '<b>今井浜海水浴場</b><br>徒歩圏内の美しいビーチ' },
+            { category: 'sightseeing', lat: 34.7214, lng: 138.9722, icon: icons.sightseeing, popup: '<b>体感型動物園 iZoo</b><br>日本最大の爬虫類・両生類動物園' },
+            { category: 'sightseeing', lat: 34.7941, lng: 138.9304, icon: icons.sightseeing, popup: '<b>河津七滝</b><br>マイナスイオンたっぷりの滝巡り' },
+            { category: 'sightseeing', lat: 34.6644, lng: 138.9461, icon: icons.sightseeing, popup: '<b>下田海中水族館</b><br>自然の入り江を利用した水族館' },
+            { category: 'gourmet', lat: 34.7935, lng: 138.9328, icon: icons.gourmet, popup: '<b>わさび園かどや</b><br>孤独のグルメにも登場したわさび丼' },
+            { category: 'gourmet', lat: 34.7475, lng: 138.9940, icon: icons.gourmet, popup: '<b>どんぶりや</b><br>新鮮な海鮮丼ランチ' },
+            { category: 'gourmet', lat: 34.7571, lng: 138.9839, icon: icons.gourmet, popup: '<b>踊り子温泉会館</b><br>広い露天風呂がある日帰り温泉' }
+        ];
+
+        updateMapMarkers('all');
+
+        // ウィンドウのリサイズ時にマップのサイズと表示範囲を再調整
+        window.addEventListener('resize', () => {
+            areaMap.invalidateSize();
+            if(markersLayer.getLayers().length > 0) {
+                areaMap.fitBounds(markersLayer.getBounds(), { padding: [30, 30] });
+            }
+        });
+    };
+
+    const updateMapMarkers = (category) => {
+        markersLayer.clearLayers();
+        let bounds = [];
+
+        mapLocations.forEach(loc => {
+            if (category === 'all' || loc.category === 'hotel' || loc.category === category) {
+                const marker = L.marker([loc.lat, loc.lng], { icon: loc.icon });
+                marker.bindPopup(loc.popup);
+                markersLayer.addLayer(marker);
+                bounds.push([loc.lat, loc.lng]);
+            }
+        });
+
+        if (bounds.length > 0) {
+            // 単一のピン（宿など）だけの場合にズームしすぎないようにmaxZoomを指定
+            areaMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 16 });
+        }
+    };
+
+    // DOM読み込み後にマップを初期化
+    document.addEventListener('DOMContentLoaded', initMap);
+
+    // AREA GUIDE タブ切り替えロジック
+    const tabBtns = document.querySelectorAll('.area-tab-btn');
+    const tabContents = document.querySelectorAll('.area-tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 全タブボタンのリセット
+            tabBtns.forEach(b => {
+                b.classList.remove('bg-primary', 'text-white', 'border-primary');
+                b.classList.add('bg-gray-50', 'text-gray-500', 'border-gray-200');
+            });
+            // クリックされたボタンのアクティブ化
+            btn.classList.remove('bg-gray-50', 'text-gray-500', 'border-gray-200');
+            btn.classList.add('bg-primary', 'text-white', 'border-primary');
+
+            const targetId = btn.getAttribute('data-target');
+            const category = btn.getAttribute('data-category');
+            
+            // コンテンツの表示・非表示
+            tabContents.forEach(content => {
+                if (targetId === 'guide-all') {
+                    content.classList.remove('hidden');
+                    content.classList.add('animate-[pulse_0.3s_ease-in-out]');
+                } else if (content.id === targetId) {
+                    content.classList.remove('hidden');
+                    content.classList.add('animate-[pulse_0.3s_ease-in-out]');
+                } else {
+                    content.classList.add('hidden');
+                    content.classList.remove('animate-[pulse_0.3s_ease-in-out]');
+                }
+            });
+
+            // 地図のピン更新
+            if (areaMap) {
+                updateMapMarkers(category);
+            }
+        });
+    });
+
     // Lightbox Functionality
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -695,9 +1100,8 @@
         lightboxImg.src = src;
         lightboxCaption.textContent = alt;
         lightbox.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // 背景のスクロール防止
+        document.body.style.overflow = 'hidden'; 
         
-        // 少し遅延させてopacityを変更（フェードインアニメーション用）
         setTimeout(() => {
             lightbox.classList.remove('opacity-0');
             lightbox.classList.add('opacity-100');
@@ -707,15 +1111,14 @@
     const closeLightboxFn = () => {
         lightbox.classList.remove('opacity-100');
         lightbox.classList.add('opacity-0');
-        document.body.style.overflow = ''; // スクロール復元
+        document.body.style.overflow = ''; 
         
         setTimeout(() => {
             lightbox.classList.add('hidden');
             lightboxImg.src = '';
-        }, 300); // transitionのdurationと合わせる
+        }, 300);
     };
 
-    // トリガー画像クリックで開く
     lightboxTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
             e.preventDefault();
@@ -723,7 +1126,6 @@
         });
     });
 
-    // 閉じるボタンまたは背景クリックで閉じる
     lightboxClose.addEventListener('click', closeLightboxFn);
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
@@ -731,7 +1133,6 @@
         }
     });
 
-    // ESCキーで閉じる
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
             closeLightboxFn();
