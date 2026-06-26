@@ -648,8 +648,8 @@
                 <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100 flex items-center">
                     <div class="bg-blue-100 text-blue-500 w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3 flex-shrink-0"><i class="fas fa-store"></i></div>
                     <div>
-                        <div class="font-bold text-sm text-gray-800 line-clamp-1">ファミマ 見高店</div>
-                        <div class="text-[10px] text-gray-500">車2分/徒歩15分</div>
+                        <div class="font-bold text-sm text-gray-800 line-clamp-1">セブンイレブン</div>
+                        <div class="text-[10px] text-gray-500">車約3分/徒歩約22分</div>
                     </div>
                 </div>
                 <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100 flex items-center">
@@ -730,16 +730,16 @@
                     <div class="flex items-start">
                         <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center text-blue-500 mr-4 flex-shrink-0"><i class="fas fa-store"></i></div>
                         <div>
-                            <h4 class="font-bold text-gray-800">ファミリーマート 見高店</h4>
-                            <p class="text-xs text-gray-500 mt-1 mb-2">宿から一番近いコンビニ。ちょっとした買い出しに便利です。<br><span class="text-gray-600 font-medium">【営業時間】24時間営業</span></p>
-                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町見高1264-1</p>
+                            <h4 class="font-bold text-gray-800">セブン-イレブン 伊豆河津駅前店</h4>
+                            <p class="text-xs text-gray-500 mt-1 mb-2">河津駅前にある便利なコンビニ。ちょっとした買い出しに便利です。<br><span class="text-gray-600 font-medium">【営業時間】24時間営業</span></p>
+                            <p class="text-[10px] text-gray-400 mb-2">静岡県賀茂郡河津町浜155-2</p>
                             <div class="flex items-center text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded inline-block">
-                                <i class="fas fa-car mr-1"></i>車 約2分 / <i class="fas fa-walking mr-1 ml-1"></i>徒歩 約15分
+                                <i class="fas fa-car mr-1"></i>車 約3分 / <i class="fas fa-walking mr-1 ml-1"></i>徒歩 約22分
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 text-right">
-                        <a href="https://maps.google.com/?q=ファミリーマート見高店" target="_blank" class="inline-block text-xs font-bold text-blue-500 border border-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
+                        <a href="https://maps.google.com/?q=セブンイレブン伊豆河津駅前店" target="_blank" class="inline-block text-xs font-bold text-blue-500 border border-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500 hover:text-white transition">経路案内 <i class="fas fa-external-link-alt ml-1"></i></a>
                     </div>
                 </div>
 
@@ -1053,8 +1053,8 @@
     let mapLocations = [];
 
     const initMap = () => {
-        // マップの初期化
-        areaMap = L.map('area-map').setView([34.7465, 138.9950], 15);
+        // マップの初期表示位置とズームレベルを調整
+        areaMap = L.map('area-map').setView([34.750, 138.995], 14);
 
         // OpenStreetMapタイルレイヤーを追加
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1090,8 +1090,9 @@
         };
 
         mapLocations = [
-            { id: 'hotel', category: 'hotel', lat: 34.7465, lng: 138.9984, icon: hotelIcon, popup: '<b class="text-primary">サンライズガーデン</b><br>今回の宿泊先です。' },
-            { category: 'shop', lat: 34.7456, lng: 138.9958, icon: icons.shop, popup: '<b>ファミマ 見高店</b><br>最寄りのコンビニ' },
+            // 宿の座標を修正
+            { id: 'hotel', category: 'hotel', lat: 34.75405, lng: 139.00159, icon: hotelIcon, popup: '<b class="text-primary">サンライズガーデン</b><br>今回の宿泊先です。' },
+            { category: 'shop', lat: 34.7485, lng: 138.9918, icon: icons.shop, popup: '<b>セブン-イレブン 伊豆河津駅前店</b><br>便利な駅前コンビニ' },
             { category: 'shop', lat: 34.7490, lng: 138.9915, icon: icons.shop, popup: '<b>スーパーあおき</b><br>BBQの買い出しに便利' },
             { category: 'shop', lat: 34.7495, lng: 138.9920, icon: icons.shop, popup: '<b>マックスバリュ</b><br>大型スーパー' },
             { category: 'shop', lat: 34.7485, lng: 138.9930, icon: icons.shop, popup: '<b>ココカラファイン</b><br>日用品・薬の買い出しに' },
